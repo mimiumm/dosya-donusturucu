@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+
+# Sanal ortam / virtual environment
+.venv/
+
+# Deneme kitapları ve belgeler / test books and documents
+*.epub
+*.pdf
+*.mobi
+*.azw3
+
+# Yerel araç ayarları / local tool settings
+.claude/
