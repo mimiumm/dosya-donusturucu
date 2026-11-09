@@ -63,3 +63,5 @@ python main.py book.epub book.pdf
 ## License
 
 [AGPL-3.0](LICENSE)
+
+© 2026 mimiumm

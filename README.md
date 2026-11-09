@@ -63,3 +63,5 @@ python main.py kitap.epub kitap.pdf
 ## Lisans
 
 [AGPL-3.0](LICENSE)
+
+© 2026 mimiumm
