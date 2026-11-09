@@ -11,15 +11,13 @@ E_OKUYUCULAR = {
     "Kindle": (1072, 1448),
     "PocketBook": (1264, 1680),
 }
-TOPLU_HEDEFLER = ["EPUB", "PDF", "MOBI", "AZW3", "DOCX"]
+TOPLU_HEDEFLER = ["EPUB", "PDF"]
 
-# Her kaynak türü için satırdaki "neye çevrilsin" seçenekleri
+# Her kaynak türü için satırdaki "neye çevrilsin" seçenekleri.
+# Yalnızca çalışan dönüşümler; yeni format eklenince buraya bir satır eklenir.
 HEDEFLER = {
-    "PDF": ["→ EPUB", "→ MOBI", "→ AZW3", "→ DOCX"],
-    "EPUB": ["EPUB kalsın, kapağı düzelt", "EPUB kalsın, sadece kapak", "→ PDF", "→ MOBI", "→ AZW3"],
-    "MOBI": ["→ EPUB", "→ AZW3", "→ PDF"],
-    "AZW3": ["→ EPUB", "→ MOBI", "→ PDF"],
-    "DOCX": ["→ PDF", "→ EPUB"],
+    "PDF": ["→ EPUB"],
+    "EPUB": ["EPUB kalsın, kapağı düzelt", "EPUB kalsın, sadece kapak", "→ PDF"],
 }
 
 # EPUB eklenince kapak durumuna göre önceden seçilen hedef

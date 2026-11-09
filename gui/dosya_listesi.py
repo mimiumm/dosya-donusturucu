@@ -97,7 +97,7 @@ class DosyaSatiri(QWidget):
         self.klasorde_goster.clicked.connect(self._klasorde_goster)
         self.durum_hata = etiket("!  Hata", "turuncuEtiket")
         self.durum_desteklenmiyor = etiket("Henüz desteklenmiyor", "griEtiket")
-        self.durum_desteklenmiyor.setToolTip("Bu hedef henüz yapılamıyor; şimdilik yalnızca 'EPUB kalsın' seçenekleri çalışıyor.")
+        self.durum_desteklenmiyor.setToolTip("Bu dönüşüm henüz yapılamıyor.")
         for parca in (self.durum_sirada, self.durum_cubuk, self.durum_bitti, self.klasorde_goster,
                       self.durum_hata, self.durum_desteklenmiyor):
             satir.addWidget(parca, alignment=Qt.AlignVCenter)

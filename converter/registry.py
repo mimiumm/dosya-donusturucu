@@ -30,10 +30,11 @@ def kayipli_mi(kaynak_uzanti, hedef_uzanti):
     return bool(girdi) and girdi["quality"] == "lossy"
 
 
-def dosyaya_donustur(kaynak, hedef_klasor, hedef_uzanti):
+def dosyaya_donustur(kaynak, hedef_klasor, hedef_uzanti, ad=None):
     """Kaynağı hedef_klasor'e yeni dosya olarak dönüştürür; orijinale dokunmaz. Yazılan yolu döndürür.
 
-    Ad doluysa 'ad (2).uzantı' kullanılır. Önce geçici adla yazılır, bitince asıl ada taşınır.
+    ad verilmezse kaynağın adı kullanılır. Ad doluysa 'ad (2).uzantı' kullanılır.
+    Önce geçici adla yazılır, bitince asıl ada taşınır.
     Hata olursa DonusturmeHatasi verir ve yarım dosya bırakmaz.
     """
     kaynak = Path(kaynak).resolve()
@@ -45,7 +46,7 @@ def dosyaya_donustur(kaynak, hedef_klasor, hedef_uzanti):
         hedef_klasor.mkdir(parents=True, exist_ok=True)
     except OSError as hata:
         raise DonusturmeHatasi(f"Kayıt klasörü oluşturulamadı: {hata}") from hata
-    hedef = benzersiz_yol(hedef_klasor, kaynak.stem + hedef_uzanti.lower())
+    hedef = benzersiz_yol(hedef_klasor, (ad or kaynak.stem) + hedef_uzanti.lower())
     if hedef.resolve() == kaynak:  # olmaz ama orijinalin üzerine asla yazılmasın
         raise DonusturmeHatasi("Hedef dosya orijinalle aynı.")
     gecici = hedef.with_name(f".{hedef.stem}.yaziliyor{hedef.suffix}")  # uzantı sonda kalsın
@@ -59,11 +60,11 @@ def dosyaya_donustur(kaynak, hedef_klasor, hedef_uzanti):
 
 
 def convert(src, dst):
-    """Komut satırı (main.py) için; uyarıyı terminale yazar. Arayüz dosyaya_donustur() kullanır."""
-    key = (Path(src).suffix.lower(), Path(dst).suffix.lower())
-    entry = CONVERTERS.get(key)
-    if entry is None:
-        raise ValueError(f"Desteklenmeyen dönüşüm: {key[0]} -> {key[1]}")
-    if entry["quality"] == "lossy":
-        print("Uyarı: bu dönüşüm kayıplıdır, düzen bozulabilir.")
-    entry["fn"](src, dst)
+    """Komut satırı (main.py) için; arayüzle aynı güvenli yolu kullanır. Yazılan yolu döndürür.
+
+    dst doluysa üzerine yazılmaz, 'ad (2).uzantı' kullanılır. Hata olursa DonusturmeHatasi verir.
+    """
+    src, dst = Path(src), Path(dst)
+    if kayipli_mi(src.suffix, dst.suffix):
+        print("Uyarı: bu dönüşüm kayıplıdır. " + donusturucu(src.suffix, dst.suffix)["uyari"])
+    return dosyaya_donustur(src, dst.parent, dst.suffix, ad=dst.stem)

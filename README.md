@@ -62,4 +62,4 @@ python main.py kitap.epub kitap.pdf
 
 ## Lisans
 
-[MIT](LICENSE)
+[AGPL-3.0](LICENSE)

@@ -25,7 +25,7 @@ class BirakmaAlani(KesikCerceve):
         duzen.addWidget(YuklemeSimgesi(), alignment=Qt.AlignHCenter)
         duzen.addSpacing(10)
         duzen.addWidget(etiket("Dosyalarını buraya bırak", "birakBasligi"), alignment=Qt.AlignHCenter)
-        duzen.addWidget(etiket("PDF, EPUB, MOBI, AZW3, DOCX ve daha fazlası"), alignment=Qt.AlignHCenter)
+        duzen.addWidget(etiket("PDF ve EPUB"), alignment=Qt.AlignHCenter)
         duzen.addSpacing(6)
         self.dosya_sec = dugme("Dosya seç")
         self.dosya_sec.setMinimumWidth(114)
