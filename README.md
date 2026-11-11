@@ -1,33 +1,31 @@
-# Dosya Dönüştürücü
+# Dosya Dönüştürücü (File Converter)
 
-🇹🇷 **Türkçe** | 🇬🇧 [English](README.en.md)
+**English** | [Türkçe](README.tr.md)
 
-E-kitaplar için masaüstü dosya dönüştürücü. EPUB ve PDF dosyalarını birbirine çevirir, EPUB kitaplara e-okuyucunuzun ekranına uygun kapak ekler ya da mevcut kapağı düzeltir. PySide6 (Qt) ile yazılmıştır.
+A desktop file converter for e-books. It converts between EPUB and PDF, and adds a cover sized for your e-reader's screen to EPUB books, or fixes the existing one. Built with PySide6 (Qt).
 
-> ⚠️ **Geliştirme aşamasında.** Temel özellikler çalışıyor, eksik kısımlar güncellemelerle eklenecek. Arayüz şimdilik yalnızca Türkçe.
+> ⚠️ **Work in progress.** The core features work; the missing parts will come in future updates. **The app's interface is currently Turkish only** — an English interface is planned.
 
-## Görünüm
+## Screenshots
 
-Tasarım taslakları:
+![Main window](screenshots/main-window.png)
 
-![Ana pencere](tasar%C4%B1m%20%C5%9Fablon/C%20%C2%B7%20Lavanta%20%28%C3%A7ok%20formatl%C4%B1%29%402x.png)
+| No cover | Image picked | Has cover |
+|---|---|---|
+| ![No cover](screenshots/no-cover.png) | ![Image picked](screenshots/no-cover-selected.png) | ![Has cover](screenshots/has-cover.png) |
 
-| Kapak yok → kullanıcı seçer | Kapak var → kalır, boyutu ayarlanır |
-|---|---|
-| ![Kapak yok](tasar%C4%B1m%20%C5%9Fablon/Durum%201%20%C2%B7%20Kapak%20yok%20%E2%86%92%20kullan%C4%B1c%C4%B1%20se%C3%A7er%402x.png) | ![Kapak var](tasar%C4%B1m%20%C5%9Fablon/Durum%202%20%C2%B7%20Kapak%20var%20%E2%86%92%20kal%C4%B1r%2C%20boyutu%20ayarlan%C4%B1r%402x.png) |
+## Features
 
-## Özellikler
-
-- **EPUB kapak ekleme / düzeltme** — kapak, seçilen e-okuyucunun çözünürlüğüne getirilir (Kobo Clara, Kobo Libra, Kindle, Kindle Paperwhite, PocketBook). *Doldur* ve *Sığdır* seçenekleriyle önizleme.
-- **Kitap adı ve yazar düzeltme** — kapak penceresinden.
+- **Add / fix EPUB covers** — the cover is resized to the selected e-reader's resolution (Kobo Clara, Kobo Libra, Kindle, Kindle Paperwhite, PocketBook), with *Fill* and *Fit* preview options.
+- **Fix book title and author** — from the cover window.
 - **EPUB → PDF**
-- **PDF → EPUB** — kayıplıdır: yalnızca yazılar aktarılır, resimler ve sayfa düzeni kaybolur. Uygulama bunu "Kayıplı" etiketiyle gösterir.
-- **Sürükle-bırak** ile dosya ekleme.
-- **Orijinal dosyaya dokunmaz** — çıktı her zaman seçilen kayıt klasörüne yeni dosya olarak yazılır (varsayılan: `Belgeler/Kitaplar`). Aynı adlı dosya varsa `ad (2).epub` gibi yeni ad verilir.
+- **PDF → EPUB** — lossy: only the text is carried over; images and page layout are lost. The app marks this with a "Lossy" label.
+- **Drag and drop** to add files.
+- **Never touches the original** — output is always written as a new file to the chosen save folder (default: `Documents/Kitaplar`). If a file with the same name exists, a new name like `name (2).epub` is used.
 
-## Kurulum
+## Installation
 
-Python 3.10 veya üstü gerekir.
+Requires Python 3.10 or newer.
 
 ```bash
 git clone https://github.com/mimiumm/dosya-donusturucu.git
@@ -37,30 +35,30 @@ source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## Kullanım
+## Usage
 
-Arayüzü açmak için:
+To open the interface:
 
 ```bash
 python gui_qt.py
 ```
 
-Komut satırından tek dosya dönüştürmek için:
+To convert a single file from the command line:
 
 ```bash
-python main.py kitap.epub kitap.pdf
+python main.py book.epub book.pdf
 ```
 
-## Yol haritası
+## Roadmap
 
-- [ ] MOBI, AZW3 ve DOCX desteği
-- [ ] "Tümünü şuna çevir" (toplu hedef seçimi)
-- [ ] İngilizce arayüz
-- [ ] Koyu tema
-- [ ] CBZ ve diğer formatlar
-- [ ] Hazır paketler (PyInstaller)
+- [ ] MOBI, AZW3 and DOCX support
+- [ ] "Convert all to…" (batch target selection)
+- [ ] English interface
+- [ ] Dark theme
+- [ ] CBZ and other formats
+- [ ] Ready-to-use packages (PyInstaller)
 
-## Lisans
+## License
 
 [AGPL-3.0](LICENSE)
 

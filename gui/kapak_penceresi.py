@@ -31,6 +31,9 @@ GORSEL_UZANTILARI = [
 ]
 GORSEL_SUZGECI = "Resimler (" + " ".join(f"*.{u}" for u in GORSEL_UZANTILARI) + ")"
 
+# Kapağı olan kitapta, yeni görsel seçilmemişken sağdaki yazı
+_KAPAK_NOTU = "Senin bir şey yapmana gerek yok. Kapağı değiştirmek istersen:"
+
 
 def gorsel_mi(yol):
     return Path(yol).suffix.lower().lstrip(".") in GORSEL_UZANTILARI
@@ -139,13 +142,14 @@ class KapakPenceresi(QDialog):
         serit_duzen.setSpacing(12)
         if kapak_var:
             serit_duzen.addWidget(SeritSimgesi("onay", YESIL_YAZI))
-            metin = f"Bu kitabın kapağı var, aynen kalacak. Sadece {e_okuyucu} boyutuna ayarlanacak."
+            metin = "Bu kitabın kapağı var."
         else:
             serit_duzen.addWidget(SeritSimgesi("uyari", TURUNCU_YAZI))
             metin = "Bu kitabın kapağı yok. Bir görsel seç, kapak olsun."
-        serit_yazi = QLabel(metin)
-        serit_yazi.setWordWrap(True)
-        serit_duzen.addWidget(serit_yazi, 1)
+        self.kapak_var = kapak_var
+        self.serit_yazi = QLabel(metin)
+        self.serit_yazi.setWordWrap(True)
+        serit_duzen.addWidget(self.serit_yazi, 1)
         duzen.addWidget(serit)
 
         # Gövde: solda kapak, sağda alanlar
@@ -222,11 +226,22 @@ class KapakPenceresi(QDialog):
         sag.addSpacing(10)
 
         if kapak_var:
-            sag.addWidget(etiket("Senin bir şey yapmana gerek yok. Kapağı değiştirmek istersen:"))
+            self.kendi_kapagi = kapak_gorseli  # Temizle'ye basılınca bu geri gelir
+            self.kapak_notu = etiket(_KAPAK_NOTU)
+            self.kapak_notu.setWordWrap(True)
+            sag.addWidget(self.kapak_notu)
             sag.addSpacing(6)
+            dugmeler = QHBoxLayout()
+            dugmeler.setSpacing(10)
             self.baska_gorsel = dugme("Başka görsel seç", "cerceve")
             self.baska_gorsel.clicked.connect(self.gorsel_sec_penceresi)
-            sag.addWidget(self.baska_gorsel, alignment=Qt.AlignLeft)
+            self.temizle_dugmesi = dugme("Temizle", "cerceve")
+            self.temizle_dugmesi.clicked.connect(self.temizle)
+            self.temizle_dugmesi.hide()  # yalnızca yeni görsel seçilince görünür
+            dugmeler.addWidget(self.baska_gorsel)
+            dugmeler.addWidget(self.temizle_dugmesi)
+            dugmeler.addStretch()
+            sag.addLayout(dugmeler)
         else:
             not_ = etiket(f"Seçtiğin görsel otomatik olarak {e_okuyucu} boyutuna ({gen} × {yuk}) getirilir.")
             not_.setWordWrap(True)
@@ -296,12 +311,25 @@ class KapakPenceresi(QDialog):
         self.gorsel_uyari.hide()
         self.secilen_gorsel_yolu = str(yol)
         self.onizleme.gorsel_ayarla(gorsel)
+        if self.kapak_var:
+            self.serit_yazi.setText("Kapak seçtiğin görselle değiştirilecek.")
+            self.kapak_notu.setText("Farklı bir görsel seçebilir ya da kitabın kendi kapağına dönebilirsin:")
+            self.temizle_dugmesi.show()
         if self.birak is not None:
             self.birak.hide()
             self.onizleme.show()
             self.onizleme_notu.show()
             self.gorsel_sec.setText("Başka görsel seç")
         return True
+
+    def temizle(self):
+        """Seçilen görseli bırakır, kitabın kendi kapağına döner (yalnızca kapağı olan kitapta)."""
+        self.secilen_gorsel_yolu = None
+        self.onizleme.gorsel_ayarla(self.kendi_kapagi)
+        self.gorsel_uyari.hide()
+        self.serit_yazi.setText("Bu kitabın kapağı var.")
+        self.kapak_notu.setText(_KAPAK_NOTU)
+        self.temizle_dugmesi.hide()
 
     # --- Sürükle-bırak ---
 
