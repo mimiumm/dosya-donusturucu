@@ -25,7 +25,9 @@ E-kitaplar için masaüstü dosya dönüştürücü. EPUB ve PDF dosyalarını b
 
 ## Kurulum
 
-Python 3.10 veya üstü gerekir.
+Python 3.10 veya üstü gerekir. openSUSE Tumbleweed'de (Linux) denendi. Başka sistemlerde de çalışabilir ama henüz denenmedi.
+
+Bazı Linux dağıtımlarında komut `python` yerine `python3`'tür.
 
 ```bash
 git clone https://github.com/mimiumm/dosya-donusturucu.git
@@ -52,9 +54,9 @@ python main.py kitap.epub kitap.pdf
 ## Yol haritası
 
 - [ ] MOBI, AZW3 ve DOCX desteği
-- [ ] "Tümünü şuna çevir" (toplu hedef seçimi)
+- [ ] "Tümünü şuna çevir" (toplu hedef seçimi) — düğmesi görünüyor, henüz çalışmıyor
 - [ ] İngilizce arayüz
-- [ ] Koyu tema
+- [ ] Koyu tema — düğmesi görünüyor, henüz çalışmıyor
 - [ ] CBZ ve diğer formatlar
 - [ ] Hazır paketler (PyInstaller)
 

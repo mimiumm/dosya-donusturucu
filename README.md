@@ -25,7 +25,9 @@ A desktop file converter for e-books. It converts between EPUB and PDF, and adds
 
 ## Installation
 
-Requires Python 3.10 or newer.
+Requires Python 3.10 or newer. Tested on openSUSE Tumbleweed (Linux). It may work on other systems, but they haven't been tested yet.
+
+On some Linux distributions, the command is `python3` instead of `python`.
 
 ```bash
 git clone https://github.com/mimiumm/dosya-donusturucu.git
@@ -52,9 +54,9 @@ python main.py book.epub book.pdf
 ## Roadmap
 
 - [ ] MOBI, AZW3 and DOCX support
-- [ ] "Convert all to…" (batch target selection)
+- [ ] "Convert all to…" (batch target selection) — button is visible, not working yet
 - [ ] English interface
-- [ ] Dark theme
+- [ ] Dark theme — button is visible, not working yet
 - [ ] CBZ and other formats
 - [ ] Ready-to-use packages (PyInstaller)
 
